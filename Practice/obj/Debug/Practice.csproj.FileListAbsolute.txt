@@ -13,3 +13,5 @@ C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.c
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.csproj.CoreCompileInputs.cache
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.exe
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.pdb
+C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\AddActionWindow.g.cs
+C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\AddActionWindow.baml

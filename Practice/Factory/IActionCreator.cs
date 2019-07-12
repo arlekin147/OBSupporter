@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Practice.Elements
+namespace Practice.Factory
 {
-    public interface IActionElement
+    interface IActionCreator
     {
-        Label Label { get; set; }
-        Button Button { get; set; }
+        WrapPanel CreateAction(string shortcut, string action, int width);
     }
 }

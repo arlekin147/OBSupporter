@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Practice.Observers;
-using Practice.Elements;
+using Practice.Factory;
 
 namespace Practice.Configuration
 {
     public static class DependencyRegistrator
     {
         static internal IOBSStatus OBSStatus { get => new OBSStatus();}
-        static internal IActionElement EmptyActionElement { get => new ActionElement(); }
+        static internal IActionCreator ActionCreator { get => new ActionCreator(); }
+        
     }
 }

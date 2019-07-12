@@ -9,6 +9,6 @@ namespace Practice.Observers
     public class OBSStatus : IOBSStatus
     {
         private readonly Random random = new Random();
-        public long Time => random.Next();
+        public double Time => random.Next();
     }
 }

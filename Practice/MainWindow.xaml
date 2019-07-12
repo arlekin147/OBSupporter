@@ -8,38 +8,38 @@
         Title="OBSupporter" Height="960" Width="270">
     <Grid Margin="0,0,0,0">
         <ToolBar Height="55" Margin="0,1,-7,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="269">
-            <Button x:Name="SettingsButton" Click="OpenSettings">
-                <Image x:Name="SettingsImage" Source="././images/Settings.png" Width="50" Height="50"/>
+            <Button x:Name="AddActionButton" Click="OpenAddActionWindow">
+                <Image x:Name="AddActionImage" Source="././images/Settings.png" Width="50" Height="50"/>
             </Button>
             <Separator />
             <Button>
-                <Image x:Name="Log" Source="././images/Settings.png" Width="50" Height="50"/>
+                <Image x:Name="LogButton" Source="././images/Settings.png" Width="50" Height="50"/>
             </Button>
             <Separator />
             <Button>
-                <Image x:Name="Save" Source="././images/Settings.PNG" Width="50" Height="50"/>
+                <Image x:Name="SaveButton" Source="././images/Settings.PNG" Width="50" Height="50"/>
             </Button>
             <Separator />
             <Button>
-                <Image x:Name="Close" Source="././images/Settings.png" Width="50" Height="50"/>
+                <Image x:Name="CloseButton" Source="././images/Settings.png" Width="50" Height="50"/>
             </Button>
         </ToolBar>
         <Label x:Name="RecordTime" HorizontalContentAlignment ="Center" Content="" Height="47" Margin="10,61,0,0" VerticalAlignment="Top" Width="230"/>
-        <Label x:Name="OBSStatus" Content="Ogo" HorizontalAlignment="Left" Height="47" Margin="91,148,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label x:Name="CameraStatus" Content="Aga" HorizontalAlignment="Left" Height="47" Margin="91,200,0,0" VerticalAlignment="Top" Width="160"/>
-        <Image x:Name="SettingsImage_Copy" Source="././images/Settings.png" Margin="11,118,201,709" RenderTransformOrigin="2.02,-0.22"/>
-        <Image x:Name="SettingsImage_Copy1" Source="././images/Settings.png" Margin="11,175,201,652" RenderTransformOrigin="2.02,-0.22"/>
+        <Label x:Name="OBSStatus" Content="Ogo" HorizontalAlignment="Left" Height="47" Margin="90,122,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label x:Name="CameraStatus" Content="Aga" HorizontalAlignment="Left" Height="47" Margin="90,174,0,0" VerticalAlignment="Top" Width="160"/>
+        <Image x:Name="OBSStatusImage" Source="././images/Settings.png" Margin="10,121,202,763" RenderTransformOrigin="2.02,-0.22"/>
+        <Image x:Name="CameraStatusImage" Source="././images/Settings.png" Margin="10,171,202,708" RenderTransformOrigin="2.02,-0.22"/>
         <ListBox x:Name="Actions" HorizontalAlignment="Left" Height="197" Margin="10,303,0,0" VerticalAlignment="Top" Width="241">
             <WrapPanel Height="56" Width="231"/>
         </ListBox>
         <WrapPanel HorizontalAlignment="Left" Height="60" Margin="26,515,0,0" VerticalAlignment="Top" Width="202">
             <Label Content="Num 0" Height="60" Width="58"/>
-            <Button Content="Continiue" Width="143"/>
+            <Button x:Name="ContiniueButton" Content="Continiue" Width="143"/>
         </WrapPanel>
         <Label Content="Events log" HorizontalAlignment="Center" Height="31" Margin="21,595,22,0" VerticalAlignment="Top" Width="219"/>
         <StackPanel x:Name="Logs" HorizontalAlignment="Left" Height="169" Margin="21,631,0,0" VerticalAlignment="Top" Width="213"/>
-        <Button Content="Undo" HorizontalAlignment="Left" Height="46" Margin="114,252,0,0" VerticalAlignment="Top" Width="52" Click="Button_Click"/>
-        <Button Content="Redo" HorizontalAlignment="Left" Height="46" Margin="176,252,0,0" VerticalAlignment="Top" Width="52"/>
+        <Button x:Name="UndoButton" Content="Undo" HorizontalAlignment="Left" Height="46" Margin="114,252,0,0" VerticalAlignment="Top" Width="52" Click="Button_Click"/>
+        <Button x:Name="RedoButton" Content="Redo" HorizontalAlignment="Left" Height="46" Margin="176,252,0,0" VerticalAlignment="Top" Width="52"/>
         <Label Content="Events" HorizontalAlignment="Left" Height="36" Margin="10,252,0,0" VerticalAlignment="Top" Width="88"/>
     </Grid>
 </Window>

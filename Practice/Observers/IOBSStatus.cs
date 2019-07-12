@@ -8,6 +8,6 @@ namespace Practice.Observers
 {
     public interface IOBSStatus
     {
-        long Time { get; }
+        double Time { get; }
     }
 }
