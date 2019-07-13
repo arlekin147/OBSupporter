@@ -31,6 +31,7 @@ namespace Practice
         private readonly IActionCreator actionCreator = DependencyRegistrator.ActionCreator;
         private readonly LinkedList<string> logs = new LinkedList<string>();//File.CreateText("ogo.log");
         private Dictionary<string, string> actions = new Dictionary<string, string>();
+        private Stack<string> redoStack = new Stack<string>();
         public MainWindow()
         {
             InitializeComponent();
@@ -39,8 +40,8 @@ namespace Practice
             this.timer.Interval = new TimeSpan(0, 0, 1);
             this.timer.Start();
 
-            this.actionCreator.ActionHasHappened += (str) => { this.logs.AddLast(str); };
-            this.actionCreator.ActionHasHappened += (str) => { this.LogsPanel.Items.Add(new Label { Content = str }); };
+            this.actionCreator.ActionHasHappened += (str) => { this.logs.AddLast(str); redoStack.Clear(); };
+            this.actionCreator.ActionHasHappened += (str) => { this.LogsPanel.Items.Add(new Label { Content = str }); redoStack.Clear(); };
             this.actionCreator.Origin = this.RecordTime;
             this.ContinuePanel.Children.Add(this.actionCreator.CreateAction("Num 0", "Continiue", WindowWidth));
 
@@ -138,5 +139,41 @@ namespace Practice
                 }
             }
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UndoButtonClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.logs.Count != 0)
+            {
+                this.redoStack.Push(this.logs.Last.Value);
+                this.logs.RemoveLast();
+                this.LogsPanel.Items.RemoveAt(this.LogsPanel.Items.Count - 1);
+            }
+        }
+
+        private void RedoButtonClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.redoStack.Count != 0)
+            {
+                this.logs.AddLast(this.redoStack.Pop());
+                this.LogsPanel.Items.Add(new Label() { Content = this.logs.Last.Value });
+            }
+        }
+
+        private void ResetButtonClicked(object sender, RoutedEventArgs e)
+        {
+            this.logs.Clear();
+            this.LogsPanel.Items.Clear();
+        }
+
     }
 }

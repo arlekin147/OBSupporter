@@ -55,6 +55,7 @@ namespace Practice
 
         private void RemoveButtonClick(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine(((ComboBoxText)this.ActionsToRemove.SelectedItem).Text.Split(' ')[0]);
             this.actions.Remove(((ComboBoxText)this.ActionsToRemove.SelectedItem).Text.Split(' ')[0]);
             this.DialogResult = true;
         }

@@ -21,3 +21,4 @@ C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.e
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.pdb
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\bin\Debug\Resources\background.PNG
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice_Content.g.cs
+C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.csprojAssemblyReference.cache
