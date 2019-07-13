@@ -28,7 +28,7 @@ namespace Practice
         private readonly DispatcherTimer timer;
         private readonly IOBSStatus obsStatus = DependencyRegistrator.OBSStatus;
         private readonly IActionCreator actionCreator = DependencyRegistrator.ActionCreator; 
-        private readonly Dictionary<string, string> actions = new Dictionary<string, string>();
+        private Dictionary<string, string> actions = new Dictionary<string, string>();
         public MainWindow()
         {
             InitializeComponent();
@@ -81,7 +81,21 @@ namespace Practice
                 this.Actions.Items.Clear();
                 foreach(var el in actions)
                 {
-                    this.Actions.Items.Add(this.actionCreator.CreateAction(el.Key, el.Value, this.WindowWidth));
+                    this.Actions.Items.Add(this.actionCreator.CreateAction(el.Key, el.Value, WindowWidth));
+                }
+            }
+        }
+
+        private void OpenSettingsWindow(object sender, RoutedEventArgs e)
+        {
+            var settingsWindow = new SettingsWindow(ref this.actions);
+            if (settingsWindow.ShowDialog().Value && settingsWindow.Changes)
+            {
+                Console.WriteLine("aga");
+                this.Actions.Items.Clear();
+                foreach (var el in actions)
+                {
+                    this.Actions.Items.Add(this.actionCreator.CreateAction(el.Key, el.Value, WindowWidth));
                 }
             }
         }

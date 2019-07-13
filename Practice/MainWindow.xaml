@@ -8,8 +8,8 @@
         Title="OBSupporter" Height="960" Width="270">
     <Grid Margin="0,0,0,0">
         <ToolBar Height="55" Margin="0,1,-7,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="269">
-            <Button x:Name="AddActionButton" Click="OpenAddActionWindow">
-                <Image x:Name="AddActionImage" Source="././images/Settings.png" Width="50" Height="50"/>
+            <Button x:Name="SettingsButton" Click="OpenSettingsWindow">
+                <Image x:Name="SettingsImage" Source="././images/Settings.png" Width="50" Height="50"/>
             </Button>
             <Separator />
             <Button>

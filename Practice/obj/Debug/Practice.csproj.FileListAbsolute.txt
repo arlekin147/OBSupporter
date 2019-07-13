@@ -15,3 +15,5 @@ C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.e
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\Practice.pdb
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\AddActionWindow.g.cs
 C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\AddActionWindow.baml
+C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\SettingsWindow.g.cs
+C:\Users\Alexandr_Pobezhimov\source\repos\Practice\Practice\obj\Debug\SettingsWindow.baml
