@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Practice.Observers
 {
-    public interface IOBSStatus
+    public interface IOBSStatus : IDisposable
     {
         double Time { get; }
     }

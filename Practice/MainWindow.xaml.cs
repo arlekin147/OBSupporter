@@ -22,7 +22,7 @@ namespace Practice
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IDisposable
     {
         private const int WindowWidth = 200;
         private readonly DispatcherTimer timer;
@@ -97,6 +97,11 @@ namespace Practice
                     this.Actions.Items.Add(this.actionCreator.CreateAction(el.Key, el.Value, WindowWidth));
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            this.obsStatus.Dispose();
         }
     }
 }

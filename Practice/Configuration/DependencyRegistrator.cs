@@ -12,6 +12,7 @@ namespace Practice.Configuration
     {
         static internal IOBSStatus OBSStatus { get => new OBSStatus();}
         static internal IActionCreator ActionCreator { get => new ActionCreator(); }
+        static internal ITimeObserver TimeObserver { get => new PipeObserver(); }
         
     }
 }
