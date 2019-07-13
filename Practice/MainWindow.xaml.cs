@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using Practice.Observers;
 using Practice.Configuration;
 using Practice.Factory;
+using System.IO;
 
 namespace Practice
 {
@@ -27,7 +28,8 @@ namespace Practice
         private const int WindowWidth = 200;
         private readonly DispatcherTimer timer;
         private readonly IOBSStatus obsStatus = DependencyRegistrator.OBSStatus;
-        private readonly IActionCreator actionCreator = DependencyRegistrator.ActionCreator; 
+        private readonly IActionCreator actionCreator = DependencyRegistrator.ActionCreator;
+        private readonly LinkedList<string> logs = new LinkedList<string>();//File.CreateText("ogo.log");
         private Dictionary<string, string> actions = new Dictionary<string, string>();
         public MainWindow()
         {
@@ -36,6 +38,13 @@ namespace Practice
             this.timer.Tick += new EventHandler(Timer_Tick);
             this.timer.Interval = new TimeSpan(0, 0, 1);
             this.timer.Start();
+
+            this.actionCreator.ActionHasHappened += (str) => { this.logs.AddLast(str); };
+            this.actionCreator.ActionHasHappened += (str) => { this.LogsPanel.Items.Add(new Label { Content = str }); };
+            this.actionCreator.Origin = this.RecordTime;
+            this.ContinuePanel.Children.Add(this.actionCreator.CreateAction("Num 0", "Continiue", WindowWidth));
+
+
             foreach (var el in this.actions)
             {
                 this.Actions.Items.Add(el);
@@ -51,12 +60,17 @@ namespace Practice
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            this.RecordTime.Content = UnixTimeStampToDateTime(GetCurrentUnixTime() - this.obsStatus.Time);
+            Console.WriteLine("CurrentTime = " + GetCurrentUnixTime());
+            Console.WriteLine("RecordStartTime = " + this.obsStatus.Time);
+            this.OBSStatus.Content = this.obsStatus.Time != 0 ? "Inactive :(" : "Active! :)";
+            this.CameraStatus.Content = "Inactive :(";
+            this.RecordTime.Content = this.obsStatus.Time != 0 ? new TimeSpan((long)(GetCurrentUnixTime() - this.obsStatus.Time) * 10000000).ToString() : "00:00:00";
         }
 
         private double GetCurrentUnixTime()
         {
-            return (double)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            Console.WriteLine((double)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0))).TotalSeconds);
+            return (double)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0))).TotalSeconds;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -102,6 +116,27 @@ namespace Practice
         public void Dispose()
         {
             this.obsStatus.Dispose();
+        }
+
+        private void MainWindowClosed(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void SaveButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.SaveFileDialog();
+            dialog.ShowDialog();
+            if (dialog.FileName != null && dialog.FileName != "")
+            {
+                using (var file = File.CreateText(dialog.FileName))
+                {
+                    foreach (var str in this.logs)
+                    {
+                        file.WriteLine(str);
+                    }
+                }
+            }
         }
     }
 }

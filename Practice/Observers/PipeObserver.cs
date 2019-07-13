@@ -12,7 +12,21 @@ namespace Practice.Observers
 {
     class PipeObserver : ITimeObserver
     {
-        public event TimeUpdateDelegate UpdateTime;
+        private TimeUpdateDelegate timeUpdateDelegate = null;
+        private bool interrupt = false;
+        public bool PipeStatus { get; private set; }
+        public event TimeUpdateDelegate UpdateTime
+        {
+            add
+            {
+                Console.WriteLine("Registred!");
+                this.timeUpdateDelegate += value;
+            }
+            remove
+            {
+                this.timeUpdateDelegate -= value;
+            }
+        }
         private Thread conectionThread;
         private Encoding encoder = Encoding.UTF8;
         public void StartObserve()
@@ -29,22 +43,29 @@ namespace Practice.Observers
                     new NamedPipeClientStream(".", "ObsPluginForRecordStateReportingPipe",
                         PipeDirection.InOut, PipeOptions.None,
                         TokenImpersonationLevel.Impersonation);
-            pipeClient.Connect();
-            Console.WriteLine("Connected!");
-            StreamString ss = new StreamString(pipeClient);
-            while (pipeClient.IsConnected)
-            {
-                Console.WriteLine("ogo");
-                var time = encoder.GetString(ss.ReadString());
-                var endOfTime = 0;
-                foreach(var s in time) if(char.IsDigit(s)) ++endOfTime;
-                Console.WriteLine("time: " + time.Substring(0, endOfTime));
+            while (!this.interrupt) {
+                pipeClient.Connect();
+                Console.WriteLine("Connected!");
+                StreamString ss = new StreamString(pipeClient);
+                while (pipeClient.IsConnected)
+                {
+                    Console.WriteLine("ogo");
+                    var time = encoder.GetString(ss.ReadString().Result);
+                    var endOfTime = 0;
+                    foreach (var s in time) if (char.IsDigit(s)) ++endOfTime;
+                    Console.WriteLine("time: " + time.Substring(0, endOfTime));
+                    this.timeUpdateDelegate(Double.Parse(time.Substring(0, endOfTime)));
+                }
             }
+            pipeClient.Dispose();
+            Console.WriteLine("Interrupted");
         }
 
         public void Dispose()
         {
-            this.conectionThread.Interrupt();
+            Console.WriteLine("Closed!");
+            this.interrupt = true;
+            this.conectionThread.Abort();
         }
     }
 
@@ -60,13 +81,12 @@ namespace Practice.Observers
             streamEncoding = new UnicodeEncoding();
         }
 
-        public byte[] ReadString()
+        public async Task<byte[]> ReadString()
         {
             int len;
             len = 2 * 256;
             byte[] inBuffer = new byte[len];
-            ioStream.Read(inBuffer, 0, len);
-
+            await ioStream.ReadAsync(inBuffer, 0, len);
             return inBuffer;
         }
 
