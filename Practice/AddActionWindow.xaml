@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
-        Title="AddAction" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Height="209.864">
-    <Grid Margin="10">
+        Title="AddAction" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Height="200">
+    <Grid Margin="10,10,10,35">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="20" />

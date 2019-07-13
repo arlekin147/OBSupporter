@@ -91,7 +91,6 @@ namespace Practice
             var settingsWindow = new SettingsWindow(ref this.actions);
             if (settingsWindow.ShowDialog().Value && settingsWindow.Changes)
             {
-                Console.WriteLine("aga");
                 this.Actions.Items.Clear();
                 foreach (var el in actions)
                 {

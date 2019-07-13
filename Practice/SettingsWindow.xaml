@@ -8,7 +8,7 @@
         Title="SettingsWindow" Height="162.614" Width="205.795">
     <Grid Margin="0,0,0,4">
         <Button x:Name="AddActionButton" Content="Add an action" HorizontalAlignment="Left" Margin="49,18,0,0" VerticalAlignment="Top" Width="102" Click="AddActionClicked"/>
-        <Button x:Name="RemoveActionButton" Content="Remove an action" HorizontalAlignment="Left" Margin="49,43,0,0" VerticalAlignment="Top" Width="102" Click="Button_Click"/>
+        <Button x:Name="RemoveActionButton" Content="Remove an action" HorizontalAlignment="Left" Margin="49,43,0,0" VerticalAlignment="Top" Width="102" Click="RemoveButtonClick"/>
         <Button x:Name="CloseButton" Content="Accept settings" HorizontalAlignment="Left" Margin="49,68,0,0" VerticalAlignment="Top" Width="102" Click="AcceptSettings"/>
         <Button x:Name="CloseButton_Copy" Content="Decline settings" HorizontalAlignment="Left" Margin="49,93,0,0" VerticalAlignment="Top" Width="102" Click="DeclineSettings"/>
 

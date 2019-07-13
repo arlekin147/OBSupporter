@@ -25,6 +25,7 @@ namespace Practice
         public SettingsWindow(ref Dictionary<string, string> actions)
         {
             InitializeComponent();
+
             this.Changes = false;
             this.actions = actions;
         }
@@ -66,6 +67,15 @@ namespace Practice
         {
             this.DialogResult = false;
             this.Changes = false;
+        }
+
+        private void RemoveButtonClick(object sender, RoutedEventArgs e)
+        {
+            var removeActionWindow = new RemoveActionWindow(ref actions);
+            if (removeActionWindow.ShowDialog().Value)
+            {
+                this.Changes = true;
+            }
         }
     }
 }
