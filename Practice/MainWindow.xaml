@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
-        Title="OBSupporter" Height="960" Width="270" Closed="MainWindowClosed" Background="#FF555555" UseLayoutRounding="False" ResizeMode="NoResize" ShowInTaskbar="False" Icon="Resources/background.PNG">
+        Title="OBSupporter" Height="960" Width="270" Closed="MainWindowClosed" Background="#FF555555" UseLayoutRounding="False" ShowInTaskbar="True" Icon="Resources/background.PNG" ResizeMode="CanMinimize">
     <Grid x:Name="MainGrid" Margin="0,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="pack://application:,,,/Practice;component/Resources/background.png" />
@@ -37,8 +37,9 @@
         <ListBox x:Name="LogsPanel" HorizontalAlignment="Left" Height="181" Margin="27,615,0,0" VerticalAlignment="Top" Width="213" Background="#FF555555"/>
         <Button x:Name="UndoButton" Content="" HorizontalAlignment="Left" Margin="143,342,0,0" VerticalAlignment="Top" Width="36" Height="35" Background="{x:Null}" Click="UndoButtonClicked"/>
         <Button x:Name="RedoButton" Content="" HorizontalAlignment="Left" Margin="179,342,0,0" VerticalAlignment="Top" Width="36" Height="35" Click="RedoButtonClicked" Background="{x:Null}"/>
-        <Label x:Name="OBSStatus_Copy" Content="Events:" HorizontalAlignment="Left" Height="41" Margin="40,336,0,0" VerticalAlignment="Top" Width="175" FontSize="25" Foreground="White"/>
+        <Label x:Name="OBSStatus_Copy" Content="Events:" HorizontalAlignment="Left" Height="41" Margin="40,336,0,0" VerticalAlignment="Top" Width="98" FontSize="25" Foreground="White"/>
         <Label x:Name="OBSStatus_Copy1" Content="Events log:" HorizontalAlignment="Left" Height="41" Margin="40,579,0,0" VerticalAlignment="Top" Width="175" FontSize="20" Foreground="White"/>
         <Label x:Name="OBSStatus_Copy2" Content="Last events correcting:" HorizontalAlignment="Left" Height="41" Margin="21,786,0,0" VerticalAlignment="Top" Width="211" FontSize="20" Foreground="White"/>
     </Grid>
 </Window>
+

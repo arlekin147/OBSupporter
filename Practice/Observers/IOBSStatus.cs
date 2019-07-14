@@ -9,5 +9,6 @@ namespace Practice.Observers
     public interface IOBSStatus : IDisposable
     {
         double Time { get; }
+        bool Status { get; }
     }
 }

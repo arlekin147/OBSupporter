@@ -17,6 +17,7 @@ using Practice.Observers;
 using Practice.Configuration;
 using Practice.Factory;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Practice
 {
@@ -29,9 +30,10 @@ namespace Practice
         private readonly DispatcherTimer timer;
         private readonly IOBSStatus obsStatus = DependencyRegistrator.OBSStatus;
         private readonly IActionCreator actionCreator = DependencyRegistrator.ActionCreator;
-        private readonly LinkedList<string> logs = new LinkedList<string>();//File.CreateText("ogo.log");
+        private readonly LinkedList<string> logs = new LinkedList<string>();
         private Dictionary<string, string> actions = new Dictionary<string, string>();
         private Stack<string> redoStack = new Stack<string>();
+        private string currentActionsPath = "tempActions.json";
         public MainWindow()
         {
             InitializeComponent();
@@ -45,10 +47,13 @@ namespace Practice
             this.actionCreator.Origin = this.RecordTime;
             this.ContinuePanel.Children.Add(this.actionCreator.CreateAction("Num 0", "Continiue", WindowWidth));
 
-
-            foreach (var el in this.actions)
+            if(this.currentActionsPath != null && File.Exists(this.currentActionsPath))
             {
-                this.Actions.Items.Add(el);
+                using (var sr = new StreamReader(File.OpenRead(this.currentActionsPath)))
+                {
+                    this.actions = JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());
+                }
+                this.RebuildActions();
             }
         }
 
@@ -63,7 +68,7 @@ namespace Practice
         {
             Console.WriteLine("CurrentTime = " + GetCurrentUnixTime());
             Console.WriteLine("RecordStartTime = " + this.obsStatus.Time);
-            this.OBSStatus.Content = this.obsStatus.Time != 0 ? "Inactive :(" : "Active! :)";
+            this.OBSStatus.Content = this.obsStatus.Status;
             this.CameraStatus.Content = "Inactive :(";
             this.RecordTime.Content = this.obsStatus.Time != 0 ? new TimeSpan((long)(GetCurrentUnixTime() - this.obsStatus.Time) * 10000000).ToString() : "00:00:00";
         }
@@ -93,11 +98,16 @@ namespace Practice
             if (addActionWindow.ShowDialog().Value)
             {
                 this.actions.Add(addActionWindow.Shortcut, addActionWindow.Action);
-                this.Actions.Items.Clear();
-                foreach(var el in actions)
-                {
-                    this.Actions.Items.Add(this.actionCreator.CreateAction(el.Key, el.Value, WindowWidth));
-                }
+                this.RebuildActions();
+            }
+
+        }
+        private void RebuildActions()
+        {
+            this.Actions.Items.Clear();
+            foreach (var el in actions)
+            {
+                this.Actions.Items.Add(this.actionCreator.CreateAction(el.Key, el.Value, WindowWidth));
             }
         }
 
@@ -111,6 +121,12 @@ namespace Practice
                 {
                     this.Actions.Items.Add(this.actionCreator.CreateAction(el.Key, el.Value, WindowWidth));
                 }
+                var jsonActions = JsonConvert.SerializeObject(this.actions);
+                using (var sw = new StreamWriter(File.Create("tempActions.json")))
+                {
+                    sw.WriteLine(jsonActions);
+                }
+
             }
         }
 

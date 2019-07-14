@@ -27,6 +27,8 @@ namespace Practice.Observers
             }
         }
 
+        public bool Status => this.observer.Status;
+
         public void Updatetime(double newTime)
         {
             Console.WriteLine("Time Updated");

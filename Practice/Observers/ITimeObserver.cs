@@ -12,5 +12,7 @@ namespace Practice.Observers
     {
         event TimeUpdateDelegate UpdateTime;
         void StartObserve();
+
+        bool Status { get; }
     }
 }

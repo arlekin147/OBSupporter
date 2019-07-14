@@ -14,7 +14,8 @@ namespace Practice.Observers
     {
         private TimeUpdateDelegate timeUpdateDelegate = null;
         private bool interrupt = false;
-        public bool PipeStatus { get; private set; }
+        private NamedPipeClientStream pipeClient;
+        public bool Status { get => this.pipeClient.IsConnected; }
         public event TimeUpdateDelegate UpdateTime
         {
             add
@@ -39,7 +40,7 @@ namespace Practice.Observers
 
         public void Observe()
         {
-            var pipeClient =
+            this.pipeClient =
                     new NamedPipeClientStream(".", "ObsPluginForRecordStateReportingPipe",
                         PipeDirection.InOut, PipeOptions.None,
                         TokenImpersonationLevel.Impersonation);
@@ -49,12 +50,27 @@ namespace Practice.Observers
                 StreamString ss = new StreamString(pipeClient);
                 while (pipeClient.IsConnected)
                 {
+                    string time;
                     Console.WriteLine("ogo");
-                    var time = encoder.GetString(ss.ReadString().Result);
+                    try
+                    {
+                        time = encoder.GetString(ss.ReadString().Result);
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return;
+                    }
                     var endOfTime = 0;
                     foreach (var s in time) if (char.IsDigit(s)) ++endOfTime;
                     Console.WriteLine("time: " + time.Substring(0, endOfTime));
-                    this.timeUpdateDelegate(Double.Parse(time.Substring(0, endOfTime)));
+                    try {
+                        this.timeUpdateDelegate(Double.Parse(time.Substring(0, endOfTime)));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
             }
             pipeClient.Dispose();
@@ -65,6 +81,9 @@ namespace Practice.Observers
         {
             Console.WriteLine("Closed!");
             this.interrupt = true;
+            this.pipeClient.Close();
+            this.pipeClient.Dispose();
+            this.conectionThread.Interrupt();
             this.conectionThread.Abort();
         }
     }
