@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace Practice
 {
@@ -75,6 +77,38 @@ namespace Practice
             if (removeActionWindow.ShowDialog().Value)
             {
                 this.Changes = true;
+            }
+        }
+
+        private void ChooseActionSetButtonClecked(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog();
+            dialog.ShowDialog();
+            if (dialog.FileName != null && dialog.FileName != "")
+            {
+                this.actions.Clear();
+                Console.WriteLine("Choose: " + File.ReadAllText(dialog.FileName));
+                var newActions = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(dialog.FileName));
+                foreach(var action in newActions)
+                {
+                    this.actions.Add(action.Key, action.Value);
+                }
+                this.Changes = true;
+            }
+        }
+
+        private void SaveActionSetButtonClecked(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.SaveFileDialog();
+            dialog.ShowDialog();
+            if (dialog.FileName != null && dialog.FileName != "")
+            {
+                var jsonActions = JsonConvert.SerializeObject(this.actions);
+                using (var sw = new StreamWriter(File.Create(dialog.FileName)))
+                {
+                    Console.WriteLine("Save " + jsonActions);
+                    sw.WriteLine(jsonActions);
+                }
             }
         }
     }

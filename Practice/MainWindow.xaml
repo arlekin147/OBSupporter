@@ -12,34 +12,35 @@
         </Grid.Background>
         <ToolBar Height="55" Margin="2,10,-9,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="269" Background="{x:Null}">
             <Button x:Name="SettingsButton" Click="OpenSettingsWindow">
-                <Image x:Name="SettingsImage" Width="50" Height="50"/>
+                <Image x:Name="SettingsImage" Width="50" Height="50" Opacity="0"/>
             </Button>
             <Separator />
             <Button>
-                <Image x:Name="LogButton" Width="50" Height="50"/>
+                <Image x:Name="LogButton" Width="50" Height="50" Opacity="0"/>
             </Button>
             <Separator />
             <Button x:Name="SaveButton" Click="SaveButtonClicked">
-                <Image x:Name="SaveImage" Width="50" Height="50"/>
+                <Image x:Name="SaveImage" Width="50" Height="50" Opacity="0"/>
             </Button>
             <Separator />
             <Button Click="ResetButtonClicked">
-                <Image x:Name="CloseButton" Width="50" Height="50"/>
+                <Image x:Name="CloseButton" Width="50" Height="50" Opacity="0"/>
             </Button>
         </ToolBar>
         <Label x:Name="RecordTime" HorizontalContentAlignment ="Center" Content="&#xD;&#xA;&#xD;&#xA;" Height="47" Margin="20,74,12,0" VerticalAlignment="Top" Width="230" FontSize="28" Foreground="White"/>
-        <Label x:Name="OBSStatus" Content="Ogo" HorizontalAlignment="Left" Height="47" Margin="65,223,0,0" VerticalAlignment="Top" Width="185" FontSize="25" Foreground="White"/>
-        <Label x:Name="CameraStatus" Content="Aga" HorizontalAlignment="Left" Height="47" Margin="65,284,0,0" VerticalAlignment="Top" Width="185" FontSize="25" Foreground="White"/>
+        <Label x:Name="OBSStatus" Content="" HorizontalAlignment="Left" Height="47" Margin="65,223,0,0" VerticalAlignment="Top" Width="185" FontSize="25" Foreground="White"/>
+        <Label x:Name="CameraStatus" Content="" HorizontalAlignment="Left" Height="47" Margin="65,284,0,0" VerticalAlignment="Top" Width="185" FontSize="25" Foreground="White"/>
         <ListBox x:Name="Actions" HorizontalAlignment="Left" Height="153" Margin="10,377,0,0" VerticalAlignment="Top" Width="251" Background="#FF555555">
             <WrapPanel Height="56" Width="231"/>
         </ListBox>
         <WrapPanel x:Name="ContinuePanel" HorizontalAlignment="Left" Height="39" Margin="27,535,0,0" VerticalAlignment="Top" Width="218"/>
         <ListBox x:Name="LogsPanel" HorizontalAlignment="Left" Height="181" Margin="27,615,0,0" VerticalAlignment="Top" Width="213" Background="#FF555555"/>
-        <Button x:Name="UndoButton" Content="" HorizontalAlignment="Left" Margin="143,342,0,0" VerticalAlignment="Top" Width="36" Height="35" Background="{x:Null}" Click="UndoButtonClicked"/>
-        <Button x:Name="RedoButton" Content="" HorizontalAlignment="Left" Margin="179,342,0,0" VerticalAlignment="Top" Width="36" Height="35" Click="RedoButtonClicked" Background="{x:Null}"/>
+        <Button x:Name="UndoButton" Content="" HorizontalAlignment="Left" Margin="143,342,0,0" VerticalAlignment="Top" Width="36" Height="35" Background="{x:Null}" Click="UndoButtonClicked" Opacity="0"/>
+        <Button x:Name="RedoButton" Content="" HorizontalAlignment="Left" Margin="179,342,0,0" VerticalAlignment="Top" Width="36" Height="35" Click="RedoButtonClicked" Background="{x:Null}" Opacity="0.02"/>
         <Label x:Name="OBSStatus_Copy" Content="Events:" HorizontalAlignment="Left" Height="41" Margin="40,336,0,0" VerticalAlignment="Top" Width="98" FontSize="25" Foreground="White"/>
         <Label x:Name="OBSStatus_Copy1" Content="Events log:" HorizontalAlignment="Left" Height="41" Margin="40,579,0,0" VerticalAlignment="Top" Width="175" FontSize="20" Foreground="White"/>
         <Label x:Name="OBSStatus_Copy2" Content="Last events correcting:" HorizontalAlignment="Left" Height="41" Margin="21,786,0,0" VerticalAlignment="Top" Width="211" FontSize="20" Foreground="White"/>
+        <ListBox x:Name="LastActions" HorizontalAlignment="Left" Height="107" Margin="6,824,0,0" VerticalAlignment="Top" Width="255" Background="#FF555555"/>
     </Grid>
 </Window>
 

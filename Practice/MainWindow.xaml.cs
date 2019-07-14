@@ -27,13 +27,13 @@ namespace Practice
     public partial class MainWindow : Window, IDisposable
     {
         private const int WindowWidth = 200;
+        private const int MaxLastActions = 3;
         private readonly DispatcherTimer timer;
         private readonly IOBSStatus obsStatus = DependencyRegistrator.OBSStatus;
         private readonly IActionCreator actionCreator = DependencyRegistrator.ActionCreator;
         private readonly LinkedList<string> logs = new LinkedList<string>();
         private Dictionary<string, string> actions = new Dictionary<string, string>();
         private Stack<string> redoStack = new Stack<string>();
-        private string currentActionsPath = "tempActions.json";
         public MainWindow()
         {
             InitializeComponent();
@@ -44,17 +44,33 @@ namespace Practice
 
             this.actionCreator.ActionHasHappened += (str) => { this.logs.AddLast(str); redoStack.Clear(); };
             this.actionCreator.ActionHasHappened += (str) => { this.LogsPanel.Items.Add(new Label { Content = str }); redoStack.Clear(); };
+            this.actionCreator.ActionHasHappened += (str) =>
+            {
+                if (this.LastActions.Items.Count >= MaxLastActions)
+                {
+                    this.LastActions.Items.RemoveAt(0);
+                }
+                var button = new Button()
+                {
+                    Content = str,
+                };
+                button.Click += (object sender, RoutedEventArgs e) => {
+                    this.logs.Remove((string)button.Content);
+                    Label deletingLog = null;
+                    foreach(Label el in this.LogsPanel.Items)
+                    {
+                        if (el.Content.Equals(button.Content)) deletingLog = el;
+                    }
+                    if (deletingLog != null) this.LogsPanel.Items.Remove(deletingLog);
+                    this.LastActions.Items.Remove(button);
+                };
+                this.LastActions.Items.Add(button);
+
+            };
             this.actionCreator.Origin = this.RecordTime;
+
             this.ContinuePanel.Children.Add(this.actionCreator.CreateAction("Num 0", "Continiue", WindowWidth));
 
-            if(this.currentActionsPath != null && File.Exists(this.currentActionsPath))
-            {
-                using (var sr = new StreamReader(File.OpenRead(this.currentActionsPath)))
-                {
-                    this.actions = JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());
-                }
-                this.RebuildActions();
-            }
         }
 
 
@@ -68,8 +84,8 @@ namespace Practice
         {
             Console.WriteLine("CurrentTime = " + GetCurrentUnixTime());
             Console.WriteLine("RecordStartTime = " + this.obsStatus.Time);
-            this.OBSStatus.Content = this.obsStatus.Status;
-            this.CameraStatus.Content = "Inactive :(";
+            this.OBSStatus.Content = this.obsStatus.Status ? "Connected" : "Not Connected";
+            this.CameraStatus.Content = "Not connected";
             this.RecordTime.Content = this.obsStatus.Time != 0 ? new TimeSpan((long)(GetCurrentUnixTime() - this.obsStatus.Time) * 10000000).ToString() : "00:00:00";
         }
 
@@ -78,19 +94,6 @@ namespace Practice
             Console.WriteLine((double)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0))).TotalSeconds);
             return (double)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1, 0, 0, 0))).TotalSeconds;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
-        {
-            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
-            return dtDateTime;
-        }
-
         private void OpenAddActionWindow(object sender, RoutedEventArgs e)
         {
             var addActionWindow = new AddActionWindow();
@@ -121,12 +124,6 @@ namespace Practice
                 {
                     this.Actions.Items.Add(this.actionCreator.CreateAction(el.Key, el.Value, WindowWidth));
                 }
-                var jsonActions = JsonConvert.SerializeObject(this.actions);
-                using (var sw = new StreamWriter(File.Create("tempActions.json")))
-                {
-                    sw.WriteLine(jsonActions);
-                }
-
             }
         }
 

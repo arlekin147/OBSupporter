@@ -5,23 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
-        Title="AddAction" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Height="200">
-    <Grid Margin="10,10,10,35">
+        Title="AddAction" SizeToContent="WidthAndHeight" Height="200" ResizeMode="NoResize" Background="#FF555555">
+    <Grid Margin="10,10,10,0" Height="140" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="20" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Input a digit of the action's shortcut"/>
+        <TextBlock Margin="0,0,0,5"><Run Text="Input a "/><Run Text="shortcut "/><Run Text="of the action"/></TextBlock>
         <TextBox x:Name="ShortcutBox" Grid.Row="1" MinWidth="250" Text="Digit"/>
 
-        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,56,0,-41">
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Margin="0,72,0,-57">
             <Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="0,0,10,0">OK</Button>
             <Button IsCancel="True" Click="Cancel_Click" MinWidth="60" Content="Cancel"/>
         </WrapPanel>
         <TextBlock Text="Input a text of the action" Margin="0,1,0,14" Grid.Row="2"/>
-        <TextBox x:Name="ActionBox" Grid.Row="2" MinWidth="250" Text="Text" Margin="0,22,0,-7"/>
+        <TextBox x:Name="ActionBox" Grid.Row="2" MinWidth="250" Text="Text" Margin="0,27,0,-12"/>
 
     </Grid>
 </Window>

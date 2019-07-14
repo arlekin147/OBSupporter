@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
-        Title="RemoveActionWindow" Height="110.455" Width="279.432">
-    <Grid Margin="0,0,0,2">
+        Title="RemoveActionWindow" Height="113.463" Width="279.432" ResizeMode="NoResize" Background="#FF555555">
+    <Grid Margin="0,0,0,1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="202*"/>
+            <ColumnDefinition Width="71*"/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="Removebutton" Content="Remove" HorizontalAlignment="Left" Margin="56,50,0,0" VerticalAlignment="Top" Width="76" Click="RemoveButtonClick"/>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="146,50,0,0" VerticalAlignment="Top" Width="74" Click="CancelClick"/>
-        <ComboBox Name="ActionsToRemove" Margin="0,10,0,38">
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="146,50,0,0" VerticalAlignment="Top" Width="74" Click="CancelClick" Grid.ColumnSpan="2"/>
+        <ComboBox Name="ActionsToRemove" Margin="0,10,0,50" Grid.ColumnSpan="2">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

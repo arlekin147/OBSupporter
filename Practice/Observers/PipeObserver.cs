@@ -45,11 +45,12 @@ namespace Practice.Observers
                         PipeDirection.InOut, PipeOptions.None,
                         TokenImpersonationLevel.Impersonation);
             while (!this.interrupt) {
-                pipeClient.Connect();
-                Console.WriteLine("Connected!");
-                StreamString ss = new StreamString(pipeClient);
+                Console.WriteLine("Try connect");
+                pipeClient.Connect(100000);
                 while (pipeClient.IsConnected)
                 {
+                    Console.WriteLine("Connected!");
+                    StreamString ss = new StreamString(pipeClient);
                     string time;
                     Console.WriteLine("ogo");
                     try

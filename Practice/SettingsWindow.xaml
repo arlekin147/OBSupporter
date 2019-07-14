@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Practice"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="162.614" Width="205.795">
-    <Grid Margin="0,0,0,4">
+        Title="SettingsWindow" Height="243.814" Width="205.795" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,-1" Background="#FF555555">
         <Button x:Name="AddActionButton" Content="Add an action" HorizontalAlignment="Left" Margin="49,18,0,0" VerticalAlignment="Top" Width="102" Click="AddActionClicked"/>
         <Button x:Name="RemoveActionButton" Content="Remove an action" HorizontalAlignment="Left" Margin="49,43,0,0" VerticalAlignment="Top" Width="102" Click="RemoveButtonClick"/>
-        <Button x:Name="CloseButton" Content="Accept settings" HorizontalAlignment="Left" Margin="49,68,0,0" VerticalAlignment="Top" Width="102" Click="AcceptSettings"/>
-        <Button x:Name="CloseButton_Copy" Content="Decline settings" HorizontalAlignment="Left" Margin="49,93,0,0" VerticalAlignment="Top" Width="102" Click="DeclineSettings"/>
+        <Button x:Name="CloseButton" Content="Accept settings" HorizontalAlignment="Left" Margin="49,157,0,0" VerticalAlignment="Top" Width="102" Click="AcceptSettings"/>
+        <Button x:Name="CloseButton_Copy" Content="Decline settings" HorizontalAlignment="Left" Margin="49,182,0,0" VerticalAlignment="Top" Width="102" Click="DeclineSettings"/>
+        <Button x:Name="ChooseActionSetButton" Content="Choose set of &#xD;&#xA;actions" HorizontalAlignment="Left" Margin="49,68,0,0" VerticalAlignment="Top" Width="102" Click="ChooseActionSetButtonClecked" Height="38"/>
+        <Button x:Name="SaveActionSetButton_Copy" Content="Save set of &#xA;actions" HorizontalAlignment="Left" Margin="49,111,0,0" VerticalAlignment="Top" Width="102" Click="SaveActionSetButtonClecked" Height="38"/>
 
     </Grid>
 </Window>
